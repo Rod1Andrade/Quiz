@@ -1,6 +1,8 @@
-import 'package:app/models/answer.dart';
+import 'package:app/models/answer_model.dart';
 import 'package:app/models/question_model.dart';
+import 'package:app/widgets/answer.dart';
 import 'package:app/widgets/question.dart';
+import 'package:app/widgets/reload_button.dart';
 import 'package:flutter/material.dart';
 
 class Quiz extends StatefulWidget {
@@ -15,31 +17,31 @@ class _QuizState extends State<Quiz> {
     QuestionModel(
       title: 'Qual a melhor linguagem de programação?',
       answers: [
-        Answer(title: 'Java', value: 5),
-        Answer(title: 'Dart', value: 10),
-        Answer(title: 'Javascript', value: 10),
-        Answer(title: 'C++', value: 10),
-        Answer(title: 'Python', value: 10),
+        AnswerModel(title: 'Java', value: 5),
+        AnswerModel(title: 'Dart', value: 10),
+        AnswerModel(title: 'Javascript', value: 10),
+        AnswerModel(title: 'C++', value: 10),
+        AnswerModel(title: 'Python', value: 10),
       ],
     ),
     QuestionModel(
       title: 'Qual o melhor Framework?',
       answers: [
-        Answer(title: 'React Native', value: 5),
-        Answer(title: 'Flutter', value: 10),
-        Answer(title: 'Phonegap', value: 1),
-        Answer(title: 'Vue JS', value: 2),
-        Answer(title: 'Angular', value: 4),
+        AnswerModel(title: 'React Native', value: 5),
+        AnswerModel(title: 'Flutter', value: 10),
+        AnswerModel(title: 'Phonegap', value: 1),
+        AnswerModel(title: 'Vue JS', value: 2),
+        AnswerModel(title: 'Angular', value: 4),
       ],
     ),
     QuestionModel(
       title: 'Qual o melhor Sistema Operacional?',
       answers: [
-        Answer(title: 'Android', value: 10),
-        Answer(title: 'IOS', value: 5),
-        Answer(title: 'Mac OS', value: 5),
-        Answer(title: 'Linux', value: 10),
-        Answer(title: 'Windows', value: 5),
+        AnswerModel(title: 'Android', value: 10),
+        AnswerModel(title: 'IOS', value: 5),
+        AnswerModel(title: 'Mac OS', value: 5),
+        AnswerModel(title: 'Linux', value: 10),
+        AnswerModel(title: 'Windows', value: 5),
       ],
     ),
   ];
@@ -49,6 +51,10 @@ class _QuizState extends State<Quiz> {
           _questionIndex++;
         }
       });
+
+  bool _finishQuestions() => _questionIndex >= _questions.length - 1;
+
+  void _reloadQuestions() => setState(() => _questionIndex = 0);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +73,10 @@ class _QuizState extends State<Quiz> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: _questions[_questionIndex]
                   .answers
-                  .map((e) => ElevatedButton(
-                      onPressed: _nextQuestion, child: Text(e.title)))
+                  .map((e) => Answer(
+                        text: e.title,
+                        function: _nextQuestion,
+                      ))
                   .toList(),
             ),
             Padding(
@@ -76,6 +84,10 @@ class _QuizState extends State<Quiz> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // Reload questions icon button
+                  if (_finishQuestions())
+                   ReloadButton(reloadFunction: _reloadQuestions),
+                  Spacer(),
                   Icon(Icons.menu_book),
                   Padding(
                     padding: EdgeInsets.only(left: 8.0),
