@@ -28,7 +28,7 @@ O que eu aprendi:
 
 ## Demo
 
-![Application](presentation_resources/application.gif)
+<img src="presentation_resources/application.gif" width="300" height="600">
 
 ## License
 
