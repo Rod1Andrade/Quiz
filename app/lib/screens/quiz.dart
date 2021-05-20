@@ -74,7 +74,7 @@ class _QuizState extends State<Quiz> {
     }
 
     // Over Index update State
-    if(!_finishedQuestions)
+    if (!_finishedQuestions)
       setState(() {
         _overIndex++;
       });
@@ -82,8 +82,7 @@ class _QuizState extends State<Quiz> {
 
   /// Aumenta o valor do total de questões
   void _increasePontuation(AnswerModel answer) {
-    if(!_finishedQuestions)
-      _totalValue += answer.value;
+    if (!_finishedQuestions) _totalValue += answer.value;
   }
 
   /// Verifica se o indices da questão já está no fim
@@ -102,9 +101,11 @@ class _QuizState extends State<Quiz> {
 
   /// Recarrega as questões, resetando as variáveis participantes
   void _reloadQuestions() {
-    setState(() => _questionIndex = 0);
-    _totalValue = 0;
-    _overIndex = 0;
+    setState(() {
+      _questionIndex = 0;
+      _totalValue = 0;
+      _overIndex = 0;
+    });
   }
 
   Widget build(BuildContext context) {
