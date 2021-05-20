@@ -28,7 +28,7 @@ O que eu aprendi:
 
 ## Demo
 
-![Application](presentation_resources/application.gif)
+![Application](presentation_resources/application.gif | width=100)
 
 ## License
 
