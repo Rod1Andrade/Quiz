@@ -9,6 +9,17 @@ class AnswerConclusionBottomSheet extends StatelessWidget  {
 
   AnswerConclusionBottomSheet({this.totalPoints});
 
+  String get message {
+    if(totalPoints >= 30)
+      return 'Parabéns!';
+    if(totalPoints > 20)
+      return 'Muito bem!';
+    if(totalPoints > 10)
+      return 'Pode melhorar!';
+    if(totalPoints >= 0)
+      return 'Somente o básico!';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +31,7 @@ class AnswerConclusionBottomSheet extends StatelessWidget  {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Parabéns!',
+            message,
             style: TextStyle(
               color: Colors.grey,
               fontSize: 28,
