@@ -28,7 +28,7 @@ O que eu aprendi:
 
 ## Demo
 
-![Application](presentation_resources/application.gif | width=100)
+![Application](presentation_resources/application.gif){:height="50%" width="50%"}
 
 ## License
 
