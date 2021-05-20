@@ -132,7 +132,7 @@ class _QuizState extends State<Quiz> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // Reload questions icon button
-                  if (!_isValidIndex)
+                  if (_finishedQuestions)
                     ReloadButton(reloadFunction: _reloadQuestions),
                   Spacer(),
                   Icon(Icons.menu_book),
