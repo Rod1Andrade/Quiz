@@ -18,6 +18,8 @@ class AnswerConclusionBottomSheet extends StatelessWidget  {
       return 'Pode melhorar!';
     if(totalPoints >= 0)
       return 'Somente o básico!';
+    else
+      return '';
   }
 
   @override
