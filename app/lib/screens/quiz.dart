@@ -1,19 +1,29 @@
 import 'package:app/models/answer_model.dart';
 import 'package:app/models/question_model.dart';
-import 'package:app/widgets/answer.dart';
+import 'package:app/widgets/PlanQuiz.dart';
 import 'package:app/widgets/answer_conclusion_bottom_sheet.dart';
-import 'package:app/widgets/question.dart';
 import 'package:app/widgets/reload_button.dart';
 import 'package:flutter/material.dart';
 
+/// Quiz - Tela do questionario
+///
+/// @author Rodrigo Andrade
 class Quiz extends StatefulWidget {
   @override
   _QuizState createState() => _QuizState();
 }
 
 class _QuizState extends State<Quiz> {
+  // Total de pontuação das questõse
+  int _totalValue = 0;
+
+  // Index da Lista de questões
   int _questionIndex = 0;
 
+  // Index normal
+  int _overIndex = 0;
+
+  // Lista de questões
   final List<QuestionModel> _questions = [
     QuestionModel(
       title: 'Qual a melhor linguagem de programação?',
@@ -45,19 +55,57 @@ class _QuizState extends State<Quiz> {
         AnswerModel(title: 'Windows', value: 5),
       ],
     ),
+    QuestionModel(
+      title: 'Qual a sua placa de video?',
+      answers: [
+        AnswerModel(title: 'NVIDIA', value: 10),
+        AnswerModel(title: 'AMD', value: 5),
+      ],
+    )
   ];
 
+  /// Avança para a próxima questão, alterando o estado.
   void _nextQuestion() {
-    if (!_finishQuestions()) {
+    // Questions Index update state
+    if (_isValidIndex) {
       setState(() {
         _questionIndex++;
       });
     }
+
+    // Over Index update State
+    if(!_finishedQuestions)
+      setState(() {
+        _overIndex++;
+      });
   }
 
-  bool _finishQuestions() => _questionIndex >= _questions.length - 1;
+  /// Aumenta o valor do total de questões
+  void _increasePontuation(AnswerModel answer) {
+    if(!_finishedQuestions)
+      _totalValue += answer.value;
+  }
 
-  void _reloadQuestions() => setState(() => _questionIndex = 0);
+  /// Verifica se o indices da questão já está no fim
+  ///
+  /// Return:
+  /// True caso esteja
+  /// False caso contrário
+  bool get _isValidIndex => _questionIndex < _questions.length - 1;
+
+  /// Verifica se o OverIndex tem o tamanho igual o maior que
+  /// o tamanho da lista. Server para não dar index over flow.
+  ///
+  /// True caso tenha chegado ao fim das questoes
+  /// False caso contrario.
+  bool get _finishedQuestions => _overIndex >= _questions.length;
+
+  /// Recarrega as questões, resetando as variáveis participantes
+  void _reloadQuestions() {
+    setState(() => _questionIndex = 0);
+    _totalValue = 0;
+    _overIndex = 0;
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,16 +119,11 @@ class _QuizState extends State<Quiz> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Question(title: '${_questions[_questionIndex].title}'),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: _questions[_questionIndex]
-                  .answers
-                  .map((e) => Answer(
-                        text: e.title,
-                        onAnswer: _nextQuestion,
-                      ))
-                  .toList(),
+            PlanQuiz(
+              questions: _questions,
+              questionIndex: _questionIndex,
+              nextQuestionFunction: _nextQuestion,
+              updatePointsValue: _increasePontuation,
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0),
@@ -88,7 +131,7 @@ class _QuizState extends State<Quiz> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   // Reload questions icon button
-                  if (_finishQuestions())
+                  if (!_isValidIndex)
                     ReloadButton(reloadFunction: _reloadQuestions),
                   Spacer(),
                   Icon(Icons.menu_book),
@@ -102,8 +145,10 @@ class _QuizState extends State<Quiz> {
           ],
         ),
       ),
-      bottomSheet: _finishQuestions()
-          ? AnswerConclusionBottomSheet()
+      bottomSheet: _finishedQuestions
+          ? AnswerConclusionBottomSheet(
+              totalPoints: _totalValue,
+            )
           : null,
     );
   }

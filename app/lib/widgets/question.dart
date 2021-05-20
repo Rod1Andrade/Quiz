@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 /// Question - Widget responsável por mostrar uma
 /// questão na tela.
+///
+/// @author Rodrigo Andrade
 class Question extends StatelessWidget {
   final String title;
 

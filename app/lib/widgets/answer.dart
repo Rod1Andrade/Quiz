@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Componente para comportar um botao de resposta
+///
+/// @author Rodrigo Andrade
 class Answer extends StatelessWidget{
 
   final String text;

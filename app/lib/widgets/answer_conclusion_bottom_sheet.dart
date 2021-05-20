@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// Componente para mostrar o resultado do quiz.
+///
+/// @author Rodrigo Andrade
 class AnswerConclusionBottomSheet extends StatelessWidget  {
+
+  final int totalPoints;
+
+  AnswerConclusionBottomSheet({this.totalPoints});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +27,7 @@ class AnswerConclusionBottomSheet extends StatelessWidget  {
             ),
           ),
           Text(
-            'Total de pontos: ',
+            'Total de pontos: $totalPoints',
             style: TextStyle(
                 color: Colors.grey,
                 fontSize: 18,
