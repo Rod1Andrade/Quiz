@@ -12,11 +12,11 @@ class AnswerConclusionBottomSheet extends StatelessWidget  {
   String get message {
     if(totalPoints >= 30)
       return 'Parabéns!';
-    if(totalPoints > 20)
-      return 'Muito bem!';
-    if(totalPoints > 10)
+    else if(totalPoints > 20)
+      return 'Bom!';
+    else if(totalPoints > 10)
       return 'Pode melhorar!';
-    if(totalPoints >= 0)
+    else if(totalPoints >= 0)
       return 'Somente o básico!';
     else
       return '';
