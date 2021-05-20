@@ -4,7 +4,6 @@ import 'screens/quiz.dart';
 
 void main() => runApp(Application());
 
-
 class Application extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -12,9 +11,7 @@ class Application extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quiz',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(),
       home: Quiz(),
     );
   }

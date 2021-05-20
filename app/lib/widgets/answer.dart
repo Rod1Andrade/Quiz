@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 class Answer extends StatelessWidget{
 
   final String text;
-  final Function function;
+  final void Function() onAnswer;
 
-  Answer({this.text, this.function});
+  Answer({this.text, this.onAnswer});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: function,
+      style: ElevatedButton.styleFrom(
+        primary: Theme.of(context).primaryColor
+      ),
+      onPressed: onAnswer,
       child: Text(text),
     );
   }

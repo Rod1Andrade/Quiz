@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 ///
 /// @author Rodrigo Andrade
 class ReloadButton extends StatelessWidget {
-  final Function reloadFunction;
+  final void Function() reloadFunction;
 
   ReloadButton({this.reloadFunction});
 

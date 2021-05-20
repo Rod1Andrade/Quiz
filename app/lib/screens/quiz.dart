@@ -1,6 +1,7 @@
 import 'package:app/models/answer_model.dart';
 import 'package:app/models/question_model.dart';
 import 'package:app/widgets/answer.dart';
+import 'package:app/widgets/answer_conclusion_bottom_sheet.dart';
 import 'package:app/widgets/question.dart';
 import 'package:app/widgets/reload_button.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,13 @@ class _QuizState extends State<Quiz> {
     ),
   ];
 
-  void _nextQuestion() => setState(() {
-        if (_questionIndex < _questions.length - 1) {
-          _questionIndex++;
-        }
+  void _nextQuestion() {
+    if (!_finishQuestions()) {
+      setState(() {
+        _questionIndex++;
       });
+    }
+  }
 
   bool _finishQuestions() => _questionIndex >= _questions.length - 1;
 
@@ -75,7 +78,7 @@ class _QuizState extends State<Quiz> {
                   .answers
                   .map((e) => Answer(
                         text: e.title,
-                        function: _nextQuestion,
+                        onAnswer: _nextQuestion,
                       ))
                   .toList(),
             ),
@@ -86,7 +89,7 @@ class _QuizState extends State<Quiz> {
                 children: [
                   // Reload questions icon button
                   if (_finishQuestions())
-                   ReloadButton(reloadFunction: _reloadQuestions),
+                    ReloadButton(reloadFunction: _reloadQuestions),
                   Spacer(),
                   Icon(Icons.menu_book),
                   Padding(
@@ -99,6 +102,9 @@ class _QuizState extends State<Quiz> {
           ],
         ),
       ),
+      bottomSheet: _finishQuestions()
+          ? AnswerConclusionBottomSheet()
+          : null,
     );
   }
 }
