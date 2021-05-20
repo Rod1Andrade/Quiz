@@ -28,7 +28,7 @@ O que eu aprendi:
 
 ## Demo
 
-<img src="presentation_resources/application.gif" width="100" height="100">
+<img src="presentation_resources/application.gif" width="500">
 
 ## License
 
