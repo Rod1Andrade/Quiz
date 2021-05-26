@@ -1,4 +1,7 @@
 # Flutter Learn
+
+<img src="https://img.shields.io/badge/Framework-Flutter-blue"> <img src="https://img.shields.io/badge/Plataforma-Cross--Mobile-orange">
+
 ## _Quiz application_
 
 Projeto feito no processo de aprendizado do framework flutter, o material construído
